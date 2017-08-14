@@ -92,8 +92,8 @@ public class JMSProducer {
 	 */
 	public static void sendMessage(Session session, MessageProducer messageProducer)throws JMSException {
 		for(int i=0; i<JMSProducer.sendNum; i++) {
-			TextMessage message = session.createTextMessage("activeMQ 发送的消息  : " + i);
-			System.out.println("发送消息：  ActiveMQ 发送的消息- " + i );
+			TextMessage message = session.createTextMessage("activeMQ 发送的消息  : " + i + i);
+			System.out.println("发送消息：  ActiveMQ 发送的消息- " + i + i);
 			messageProducer.send(message);
 		}
 	}

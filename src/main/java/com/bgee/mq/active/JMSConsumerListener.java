@@ -6,17 +6,12 @@ import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.MessageConsumer;
 import javax.jms.Session;
-import javax.jms.TextMessage;
 
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
-/**
- * 消息消费者
- * @author lx
- *
- */
-public class JMSConsumer {
+public class JMSConsumerListener {
+
 	
 //	默认用户名
 	private static final String USERNAME = ActiveMQConnection.DEFAULT_USER;
@@ -65,14 +60,9 @@ public class JMSConsumer {
 //			创建消费者
 			messageConsumer = session.createConsumer(destination);
 			
-			while(true) {
-				TextMessage textMessage = (TextMessage)messageConsumer.receive(100000); // 毫秒
-				if(null != textMessage) {
-					System.out.println("接收到的消息哦：    " + textMessage.getText());
-				}else {
-					break;
-				}
-			}
+//			注册监听事件
+			messageConsumer.setMessageListener(new Listener());
+			
 		}catch(JMSException e) {
 			e.printStackTrace();
 		}
